@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+            height: 300px; /* Should be removed. Only for demonstration */
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="row">
+        <div class="column" style="background-color:#bbb;">
+            <h2>Other Form </h2>
+            <form id="f1" name="fName" method="GET" onsubmit="return false">
+
+                <label for="fname">First name:</label>&nbsp;&nbsp;&nbsp;
+                <input required type="text" id="fname" name="fname"><br>
+                <label for="lname">Last name:</label>&nbsp;&nbsp;&nbsp;
+                <input required type="text" id="lname" name="lname"><br><br>
+                <label for="dob">Date of Birth:</label>&nbsp;&nbsp;&nbsp;
+                <input required type="datetime" id="dob"><br>
+                <label for="email">Enter Email:</label>&nbsp;&nbsp;&nbsp;
+                <input required type="email" id="email"><br>
+
+                <label for="favC">Select your Fav Color </label>&nbsp;&nbsp;&nbsp;
+                <input type="color" id="favC" />
+
+                <input type="checkbox" id="marStatus" value="married" checked>&nbsp;&nbsp;&nbsp;
+                <label for="marStatus"> RU Married </label><br><br>&nbsp;&nbsp;&nbsp;
+
+                <input type="submit" onclick="callJS()" value="Submit" />
+                <input type="reset" onclick="resetAll()" value="Reset" />
+
+            </form>
+        </div>
+        <div id="image-holder"></div>
+        <script>
+            function loadImage(url) {
+                return new Promise((resolve, reject) => {
+                    let img = new Image();
+                    img.addEventListener('load', e => resolve(img));
+                    img.addEventListener('error', () => {
+                        reject(new Error(`Failed to load image's URL: ${url}`));
+                    });
+                    img.src = url;
+                });
+            }
+
+            // load the image, and append it to the element id="image-holder"
+            loadImage('https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73751/world.topo.bathy.200407.3x21600x10800.jpg')
+                .then(img => document.getElementById('image-holder').appendChild(img))
+                .catch(error => console.error(error));
+
+        </script>
+
+
+    </div>
+
+</body>
+</html>
