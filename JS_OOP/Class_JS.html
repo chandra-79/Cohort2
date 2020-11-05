@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Object-oriented JavaScript inheritance</title>
+</head>
+<body>
+
+    <script>
+        function Person(f, l, a, g, i) {
+            this.name = {
+                f,
+                l
+            };
+            this.age = a;
+            this.gender = g;
+            this.interests = i;
+
+            this.info = function() {
+                console.log("  \n\n Person Details " + " :: " + this.name.f + " " + this.name.l + " :: " + this.age + " :: " + this.gender + " :: " + this.interests + "\n\n");
+            };
+        };
+
+        var steve = new Person('Steve', 'Jobs', '62', 'male', ['Design']);
+  //      steve.info();
+
+
+
+        var cook = new Person('Tim', 'Cook', 60, 'male', ['Sales']);
+    //    cook.info();
+
+
+        Person.prototype.infomationDetails = function (symbl) {
+            console.log("  \n\n Person Details " + symbl + this.name.f + " " + this.name.l + symbl + this.age + symbl + this.gender + symbl + this.interests + "\n\n");
+        };
+
+        var donald = new Person("D", "T", 75, 'male', ['Hate-Tweeting']);
+  //      donald.infomationDetails("   **********   ");
+
+         Person.prototype.bio = function () {
+            let string = this.name.f + ' ' + this.name.l + ' is ' + this.age + ' years old. ';
+            let pronoun;
+
+            if (this.gender === 'male' || this.gender === 'Male' || this.gender === 'm' || this.gender === 'M') {
+                pronoun = 'He likes ';
+            } else if (this.gender === 'female' || this.gender === 'Female' || this.gender === 'f' || this.gender === 'F') {
+                pronoun = 'She likes ';
+            } else {
+                pronoun = 'They like ';
+            }
+
+            string += pronoun;
+
+            if (this.interests.length === 1) {
+                string += this.interests[0] + '.';
+            } else if (this.interests.length === 2) {
+                string += this.interests[0] + ' and ' + this.interests[1] + '.';
+            } else {
+                for (let i = 0; i < this.interests.length; i++) {
+                    if (i === this.interests.length - 1) {
+                        string += 'and ' + this.interests[i] + '.';
+                    } else {
+                        string += this.interests[i] + ', ';
+                    }
+                }
+            }
+
+            console.log("BIO : " + string);
+        };
+
+        Person.prototype.greeting = function () {
+            console.log("Greeting : " + 'Hi! I\'m ' + this.name.f + '.');
+        };
+
+        Person.prototype.farewell = function () {
+            console.log("Farewell : " + this.name.f + ' has left the building. Bye for now!');
+        }
+
+
+
+        let person1 = new Person('Tammi', 'Smith', 17, 'female', ['music', 'skiing', 'kickboxing']);
+
+        console.log("\n\n\n====== Person Greeting, Bio, Farewell ====== \n");
+        person1.greeting();
+        person1.bio();
+        person1.farewell();
+        console.log("\n======  End of Person ======"); 
+
+
+        console.log("\n\n\n====== Person Greeting, Bio, Farewell ====== \n");
+        steve.greeting();
+        steve.bio();
+        steve.farewell();
+        console.log("\n======  End of Person ======"); 
+
+
+        console.log("\n\n\n====== Person Greeting, Bio, Farewell ====== \n");
+        donald.greeting();
+        donald.bio();
+        donald.farewell();
+        console.log("\n======  End of Person ======"); 
+
+
+        console.log("\n\n\n====== Person Greeting, Bio, Farewell ====== \n");
+        cook.greeting();
+        cook.bio();
+        cook.farewell();
+        console.log("\n======  End of Person ======"); 
+
+</script>
+</body>
+</html>

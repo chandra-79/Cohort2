@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Object-oriented JavaScript inheritance</title>
+</head>
+<body>
+
+    <script>
+        function Person(first, last, a, gender, interests) {
+            this.name = {
+                first,
+                last
+            };
+            this.age = a;
+            this.gender = gender;
+            this.interests = interests;
+        };
+
+        let person999 = new Person('Tammi', 'Smith', 17, 'female', ['music', 'skiing', 'kickboxing']);
+
+        Person.prototype.bio = function () {
+            let string = this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. ';
+            let pronoun;
+
+            if (this.gender === 'male' || this.gender === 'Male' || this.gender === 'm' || this.gender === 'M') {
+                pronoun = 'He likes ';
+            } else if (this.gender === 'female' || this.gender === 'Female' || this.gender === 'f' || this.gender === 'F') {
+                pronoun = 'She likes ';
+            } else {
+                pronoun = 'They like ';
+            }
+
+            string += pronoun;
+
+            if (this.interests.length === 1) {
+                string += this.interests[0] + '.';
+            } else if (this.interests.length === 2) {
+                string += this.interests[0] + ' and ' + this.interests[1] + '.';
+            } else {
+                for (let i = 0; i < this.interests.length; i++) {
+                    if (i === this.interests.length - 1) {
+                        string += 'and ' + this.interests[i] + '.';
+                    } else {
+                        string += this.interests[i] + ', ';
+                    }
+                }
+            }
+
+            console.log("BIO : " + string);
+        };
+
+        Person.prototype.greeting = function () {
+            console.log("Greeting : " + 'Hi! I\'m ' + this.name.first + '.');
+        };
+
+        Person.prototype.farewell = function () {
+            console.log("Farewell : " + this.name.first + ' has left the building. Bye for now!');
+        }
+
+
+
+        let person1 = new Person('Tammi', 'Smith', 17, 'female', ['music', 'skiing', 'kickboxing']);
+
+        console.log("\n\n\n====== Person Greeting, Bio, Farewell ====== \n");
+        person1.greeting();
+        person1.bio();
+        person1.farewell();
+        console.log("\n======  End of Person ======");
+
+
+
+
+        //Teacher Class !!!
+
+        function Teacher(first, last, age, gender, interests, subject) {
+            Person.call(this, first, last, age, gender, interests);
+
+            this.subject = subject;
+        }
+
+        Teacher.prototype = Object.create(Person.prototype);
+        Teacher.prototype.constructor = Teacher;
+
+        Teacher.prototype.greeting = function () {
+            let prefix;
+
+            if (this.gender === 'male' || this.gender === 'Male' || this.gender === 'm' || this.gender === 'M') {
+                prefix = 'Mr.';
+            } else if (this.gender === 'female' || this.gender === 'Female' || this.gender === 'f' || this.gender === 'F') {
+                prefix = 'Mrs.';
+            } else {
+                prefix = 'Mx.';
+            }
+               
+            console.log('Greeting :' + 'Hello. My name is ' + prefix + ' ' + this.name.last + ', and I teach ' + this.subject + '.');
+        }; 
+
+
+        let teacher1 = new Teacher('Dave', 'Griffiths', 31, 'male', ['football', 'cookery'], 'mathematics');
+
+        console.log("\n\n\n======  Teacher Greeting, Bio, Farewell ======\n ");
+        teacher1.greeting();
+        teacher1.bio();
+        teacher1.farewell();
+        console.log("\n======  End of Teacher ======");
+
+
+
+
+        // Student class!
+
+        function Student(first, last, age, gender, interests) {
+            Person.call(this, first, last, age, gender, interests);
+        }
+
+        Student.prototype = Object.create(Person.prototype);
+        Student.prototype.constructor = Student;
+
+        Student.prototype.greeting = function () {
+
+            console.log('Greeting : Yo! I\'m ' + this.name.first + '.');
+        };
+        
+        let student1 = new Student('Liz', 'Sheppard', 17, 'female', ['ninjitsu', 'air cadets']);
+
+        console.log("\n\n\n======  Student Greeting, Bio, Farewell ====== \n ");
+        student1.greeting();
+        student1.bio();
+        student1.farewell();
+        console.log("\n======  End of Student ======"); 
+
+    </script>
+</body>
+
+</html>
