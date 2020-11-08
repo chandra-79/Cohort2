@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>JSON Load</title>
+    <script>
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = () => {
+            const data = JSON.parse(xhr.responseText);
+
+            // log response
+            console.log(data);
+            dispData(data);
+        };
+        // create and send the reqeust
+        xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts');
+        xhr.send();
+        var out = "";
+        var i ;
+        function dispData(data) {
+            out += " <table border=1> <tr> <th> UserID </th> <th> ID </th> <th> Title </th> <th> Body </th> </tr>";
+            for (i = 0; i < data.length; i++) {
+                out += "<tr> <td> " + data[i].userId + " </td> <td> " + data[i].id + " </td> <td> " + data[i].title + " </td> <td> " + data[i].body + " </td> </tr>  ";
+            }
+            document.getElementById("id01").innerHTML = out;
+        }
+
+    </script>
+</head>
+<body>
+    <h1> Loading JSON using XHR Req Types and  </h1>
+
+    <div id="id01"></div>
+</body>
+</html>
